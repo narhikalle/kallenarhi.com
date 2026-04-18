@@ -1,0 +1,135 @@
+/* Mobile & small-screen overrides. Loaded after theme.css.
+   Uses !important to beat component inline styles where needed. */
+
+/* --- global mobile base --- */
+@media (max-width: 720px) {
+  body { font-size: 13px; }
+  /* prevent horizontal overflow from wide tables / pre blocks */
+  html, body { overflow-x: hidden; }
+
+  /* floating view switcher: smaller, wrap, bottom with safe-area */
+  .v-switch {
+    bottom: calc(10px + env(safe-area-inset-bottom)) !important;
+    padding: 2px !important;
+    max-width: calc(100vw - 16px);
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px !important;
+  }
+  .v-switch .label { display: none; }
+  .v-switch button {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+  }
+
+  /* ========== V1 terminal ========== */
+  .scanlines { padding: 12px 14px !important; }
+  /* banner ascii may overflow — allow scroll */
+  .scanlines pre { font-size: 10px !important; line-height: 1.2 !important; }
+  /* project rows stack */
+  .scanlines table { display: block; width: 100% !important; }
+  .scanlines tbody { display: block; }
+  .scanlines tbody tr { display: grid !important; grid-template-columns: 1fr; padding: 6px 0; }
+  .scanlines tbody td { padding: 2px 0 !important; width: auto !important; }
+
+  /* ========== V2 tmux ========== */
+  /* collapse 3-col grid to single column, page-scrolling body */
+  [data-v2-root] { height: auto !important; overflow: visible !important; }
+  [data-v2-main] {
+    grid-template-columns: 1fr !important;
+    display: block !important;
+  }
+  [data-v2-tree] {
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    display: flex; flex-wrap: wrap; gap: 2px;
+    padding: 10px !important;
+    overflow-x: auto !important;
+  }
+  [data-v2-tree] > div:first-child,
+  [data-v2-tree] > div[data-outline],
+  [data-v2-tree] > div[data-divider] { display: none !important; }
+  [data-v2-tree] [data-filepill] {
+    padding: 6px 10px !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 3px !important;
+    font-size: 11px !important;
+    white-space: nowrap;
+  }
+  [data-v2-right] {
+    border-left: none !important;
+    border-top: 1px solid var(--border) !important;
+  }
+  [data-v2-right] [data-cloud] { min-height: 200px !important; height: 200px !important; }
+  /* shrink line-number gutter */
+  [data-v2-gutter] { display: none !important; }
+  [data-v2-content] { padding: 14px 16px !important; grid-template-columns: 1fr !important; }
+  [data-v2-content] > div:first-child { display: none !important; }
+  /* tmux tab bar: reduce */
+  [data-v2-tabs] { padding: 6px 8px !important; font-size: 11px !important; gap: 4px !important; flex-wrap: wrap; }
+  [data-v2-tabs] button { padding: 3px 8px !important; font-size: 11px !important; }
+  /* status bar */
+  [data-v2-status] { font-size: 10px !important; gap: 8px !important; padding: 3px 8px !important; }
+  [data-v2-status] > span:nth-child(n+3) { display: none; }
+
+  /* ========== V3 editorial ========== */
+  [data-v3-top] { padding: 8px 14px !important; gap: 10px !important; flex-wrap: wrap; }
+  [data-v3-top] nav { display: none !important; }
+  [data-v3-top] [data-v3-meta] { margin-left: auto !important; }
+
+  [data-v3-grid] {
+    padding: 18px 14px 120px !important;
+    gap: 14px !important;
+  }
+  /* hero: stack side panel under */
+  [data-v3-hero-row] { grid-template-columns: 1fr !important; gap: 14px !important; align-items: start !important; }
+  [data-v3-hero-meta] { text-align: left !important; padding-bottom: 0 !important; }
+  [data-v3-hero-body] { grid-template-columns: 1fr !important; gap: 20px !important; margin-top: 18px !important; }
+  [data-v3-stats] { grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; }
+
+  /* name: smaller, prevent overflow */
+  [data-v3-name] { font-size: clamp(44px, 14vw, 88px) !important; letter-spacing: -1px !important; }
+
+  /* stack matrix: 2 cols */
+  [data-v3-stack] { grid-template-columns: 1fr 1fr !important; }
+  [data-v3-stack] > div { min-height: 0 !important; padding: 14px !important; }
+
+  /* project grid: 1 col */
+  [data-v3-projects] { grid-template-columns: 1fr !important; }
+  [data-v3-projects] > div { min-height: 0 !important; padding: 16px !important; }
+
+  /* timeline: stack when */
+  [data-v3-timeline] { grid-template-columns: 1fr !important; gap: 0 !important; }
+  [data-v3-timeline] > div:nth-child(odd) { padding-bottom: 0 !important; border-bottom: none !important; }
+
+  /* lab section: stack */
+  [data-v3-lab] { grid-template-columns: 1fr !important; gap: 18px !important; }
+
+  /* contact: stack */
+  [data-v3-contact] { grid-template-columns: 1fr !important; gap: 18px !important; margin-top: 8px !important; }
+
+  /* section heads: allow wrap */
+  [data-v3-section-head] { flex-wrap: wrap; gap: 10px !important; margin-bottom: 16px !important; }
+  [data-v3-section-head] > span:last-child { display: none; }
+
+  /* section head smaller */
+  [data-v3-section-head] h2 { font-size: 22px !important; }
+}
+
+/* tap targets everywhere */
+@media (max-width: 720px) {
+  button, .btn, a { min-height: 36px; }
+  .chip, .kbd { font-size: 12px !important; }
+  /* disable scanlines on mobile — looks noisy at small size */
+  .scanlines::after { display: none; }
+  /* hide big ascii banner on tiny screens */
+  [data-v1-banner] { display: none !important; }
+}
+
+/* narrow tablet */
+@media (min-width: 721px) and (max-width: 1024px) {
+  [data-v2-main] { grid-template-columns: 180px 1fr 0 !important; }
+  [data-v2-right] { display: none !important; }
+  [data-v3-stack] { grid-template-columns: repeat(3, 1fr) !important; }
+  [data-v3-projects] { grid-template-columns: repeat(2, 1fr) !important; }
+}

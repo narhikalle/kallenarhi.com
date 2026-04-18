@@ -3,34 +3,89 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kalle Närhi - Cloud Engineer</title>
-  <meta name="description" content="Kalle Närhi — Cloud Engineer. Cloud, AI, security & tinkering." />
-  <meta name="color-scheme" content="dark light" />
-
+  <title>Kalle Närhi — Cloud Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/theme.css" />
-
+  <link rel="stylesheet" href="assets/mobile.css" />
   <style>
-    .v-switch { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 500;
-      display: inline-flex; gap: 2px; background: var(--panel); border: 1px solid var(--border);
-      border-radius: 4px; padding: 3px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      font-family: "JetBrains Mono", ui-monospace, monospace; }
-    .v-switch button { padding: 6px 12px; font-size: 11px; border-radius: 2px;
-      background: transparent; border: none; color: var(--fg-dim); }
-    .v-switch button.on { background: var(--accent); color: var(--bg); font-weight: 600; }
+    /* Variation switcher */
+    .v-switch {
+      position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+      z-index: 500;
+      display: inline-flex; gap: 2px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+    }
+    .v-switch button {
+      padding: 6px 12px;
+      font-size: 11px;
+      border-radius: 2px;
+      background: transparent;
+      border: none;
+      color: var(--fg-dim);
+    }
+    .v-switch button.on {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+    }
     .v-switch button:hover { color: var(--fg); }
     .v-switch button.on:hover { color: var(--bg); }
-    .v-switch .label { padding: 6px 8px 6px 10px; font-size: 10px; color: var(--fg-mute);
-      letter-spacing: 1.5px; border-right: 1px dashed var(--border-2); align-self: center; }
+    .v-switch .label {
+      padding: 6px 8px 6px 10px;
+      font-size: 10px;
+      color: var(--fg-mute);
+      letter-spacing: 1.5px;
+      border-right: 1px dashed var(--border-2);
+      align-self: center;
+    }
+
+    /* Tweaks panel */
+    .tweaks {
+      position: fixed; top: 18px; right: 18px;
+      z-index: 500;
+      width: 240px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      display: none;
+    }
+    .tweaks.visible { display: block; }
+    .tweaks .th {
+      display: flex; align-items: center;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-2);
+    }
+    .tweaks .tb { padding: 10px; display: grid; gap: 12px; }
+    .tweaks label { display: grid; gap: 4px; }
+    .tweaks .row { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tweaks .sw {
+      width: 22px; height: 22px; border-radius: 50%;
+      border: 1px solid var(--border-2); cursor: pointer;
+    }
+    .tweaks .sw.on { outline: 2px solid var(--accent); outline-offset: 2px; }
   </style>
 </head>
 <body>
   <div id="app"></div>
 
   <script>
-    const TWEAKS = { "accent": "green", "variation": "v3" };
+    // Tweak defaults
+    const TWEAKS = /*EDITMODE-BEGIN*/{
+      "accent": "green",
+      "variation": "v3"
+    }/*EDITMODE-END*/;
+
     const ACCENTS = {
       green:  { dark: "#7dd3a8", light: "#1f6b44" },
       amber:  { dark: "#e5c07b", light: "#a6761d" },
@@ -38,6 +93,7 @@
       magenta:{ dark: "#d89de0", light: "#8a2a7e" },
       red:    { dark: "#e06c75", light: "#b4352c" }
     };
+
     function applyAccent(name) {
       const root = document.documentElement;
       const theme = root.getAttribute("data-theme") || "dark";
@@ -45,16 +101,188 @@
       root.style.setProperty("--accent", c[theme]);
       root.style.setProperty("--link", c[theme]);
     }
-    new MutationObserver(() => applyAccent(window.__tw_accent || TWEAKS.accent))
-      .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    // reapply on theme change
+    const obs = new MutationObserver(() => applyAccent(window.__tw_accent || TWEAKS.accent));
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   </script>
 
-  <!-- Production React (minified, ~45KB gzipped total) -->
-  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <!-- Precompiled app -->
   <script src="assets/data.js"></script>
-  <script src="assets/bundle.js"></script>
+  <script type="text/babel" src="assets/shared.jsx"></script>
+  <script type="text/babel" src="assets/v1_terminal.jsx"></script>
+  <script type="text/babel" src="assets/v2_tmux.jsx"></script>
+  <script type="text/babel" src="assets/v3_editorial.jsx"></script>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback } = React;
+
+    function App() {
+      const [theme, setTheme] = useTheme();
+      const [variation, setVariation] = useState(() =>
+        localStorage.getItem("kn-variation") || TWEAKS.variation || "v1"
+      );
+      const [accent, setAccent] = useState(() =>
+        localStorage.getItem("kn-accent") || TWEAKS.accent || "green"
+      );
+      const [paletteOpen, setPaletteOpen] = useState(false);
+      const [editMode, setEditMode] = useState(false);
+
+      // persist
+      useEffect(() => { localStorage.setItem("kn-variation", variation); }, [variation]);
+      useEffect(() => {
+        localStorage.setItem("kn-accent", accent);
+        window.__tw_accent = accent;
+        applyAccent(accent);
+      }, [accent]);
+
+      // edit-mode host bridge
+      useEffect(() => {
+        function onMsg(e) {
+          if (!e.data || typeof e.data !== "object") return;
+          if (e.data.type === "__activate_edit_mode") setEditMode(true);
+          else if (e.data.type === "__deactivate_edit_mode") setEditMode(false);
+        }
+        window.addEventListener("message", onMsg);
+        window.parent.postMessage({ type: "__edit_mode_available" }, "*");
+        return () => window.removeEventListener("message", onMsg);
+      }, []);
+
+      const persistEdit = (edits) => {
+        window.parent.postMessage({ type: "__edit_mode_set_keys", edits }, "*");
+      };
+
+      // global keys
+      useEffect(() => {
+        function onKey(e) {
+          const isMeta = e.metaKey || e.ctrlKey;
+          if (isMeta && e.key.toLowerCase() === "k") {
+            e.preventDefault();
+            setPaletteOpen(o => !o);
+          } else if (!paletteOpen && e.key.toLowerCase() === "t" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) {
+            setTheme(theme === "dark" ? "light" : "dark");
+          } else if (!paletteOpen && ["1","2","3"].includes(e.key) && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) {
+            setVariation("v" + e.key);
+          }
+        }
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, [theme, paletteOpen]);
+
+      const commands = [
+        { id: "v1", icon: "◐", label: "view: pure terminal", hint: "1", run: () => setVariation("v1") },
+        { id: "v2", icon: "◧", label: "view: tmux / ide",    hint: "2", run: () => setVariation("v2") },
+        { id: "v3", icon: "▦", label: "view: editorial",     hint: "3", run: () => setVariation("v3") },
+        { id: "theme", icon: "◑", label: `toggle theme (${theme})`, hint: "t",
+          run: () => setTheme(theme === "dark" ? "light" : "dark") },
+        ...Object.keys(ACCENTS).map(a => ({
+          id: "acc-"+a, icon: "●", label: `accent: ${a}`, group: "accent",
+          run: () => setAccent(a)
+        })),
+        { id: "email",   icon: "✉", label: "email kalle", hint: SITE_DATA.contact.email,
+          run: () => window.location.href = `mailto:${SITE_DATA.contact.email}` },
+        { id: "github",  icon: "⎇", label: "open github",
+          run: () => window.open(`https://${SITE_DATA.contact.github}`, "_blank") },
+        { id: "li",      icon: "in", label: "open linkedin",
+          run: () => window.open(`https://${SITE_DATA.contact.linkedin}`, "_blank") }
+      ];
+
+      const openPalette = () => setPaletteOpen(true);
+
+      return (
+        <>
+          {variation === "v1" && <V1Terminal data={SITE_DATA} openPalette={openPalette} theme={theme} setTheme={setTheme} />}
+          {variation === "v2" && <V2Tmux data={SITE_DATA} openPalette={openPalette} theme={theme} setTheme={setTheme} />}
+          {variation === "v3" && <V3Editorial data={SITE_DATA} openPalette={openPalette} theme={theme} setTheme={setTheme} />}
+
+          <CommandPalette open={paletteOpen} setOpen={setPaletteOpen} commands={commands} />
+
+          <div className="v-switch">
+            <span className="label">VIEW</span>
+            {[
+              { id: "v1", lbl: "01/terminal" },
+              { id: "v2", lbl: "02/tmux" },
+              { id: "v3", lbl: "03/editorial" }
+            ].map(v => (
+              <button key={v.id} onClick={() => setVariation(v.id)} className={variation === v.id ? "on" : ""}>
+                {v.lbl}
+              </button>
+            ))}
+          </div>
+
+          {editMode && (
+            <div className="tweaks visible">
+              <div className="th">
+                <span className="accent" style={{ marginRight: 8 }}>◆</span>
+                <span style={{ fontWeight: 600 }}>Tweaks</span>
+                <span className="dim" style={{ marginLeft: "auto", fontSize: 10 }}>live</span>
+              </div>
+              <div className="tb">
+                <label>
+                  <span className="dim" style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase" }}>variation</span>
+                  <div className="row">
+                    {["v1","v2","v3"].map(v => (
+                      <button key={v} onClick={() => { setVariation(v); persistEdit({ variation: v }); }}
+                        style={{
+                          flex: 1, fontSize: 11, padding: "4px 6px",
+                          background: variation === v ? "var(--accent)" : "var(--bg-2)",
+                          color: variation === v ? "var(--bg)" : "var(--fg-dim)",
+                          border: "1px solid var(--border)"
+                        }}>
+                        {v === "v1" ? "terminal" : v === "v2" ? "tmux" : "editorial"}
+                      </button>
+                    ))}
+                  </div>
+                </label>
+                <label>
+                  <span className="dim" style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase" }}>accent color</span>
+                  <div className="row">
+                    {Object.keys(ACCENTS).map(a => (
+                      <div key={a}
+                        className={"sw " + (accent === a ? "on" : "")}
+                        onClick={() => { setAccent(a); persistEdit({ accent: a }); }}
+                        title={a}
+                        style={{ background: ACCENTS[a][theme] }} />
+                    ))}
+                  </div>
+                </label>
+                <label>
+                  <span className="dim" style={{ fontSize: 10, letterSpacing: 1, textTransform: "uppercase" }}>theme</span>
+                  <div className="row">
+                    {["dark","light"].map(t => (
+                      <button key={t} onClick={() => setTheme(t)}
+                        style={{
+                          flex: 1, fontSize: 11, padding: "4px 6px",
+                          background: theme === t ? "var(--accent)" : "var(--bg-2)",
+                          color: theme === t ? "var(--bg)" : "var(--fg-dim)",
+                          border: "1px solid var(--border)"
+                        }}>
+                        {t}
+                      </button>
+                    ))}
+                  </div>
+                </label>
+                <div className="dim" style={{ fontSize: 10, lineHeight: 1.6, paddingTop: 6, borderTop: "1px dashed var(--border-2)" }}>
+                  shortcuts: <span className="kbd">⌘K</span> palette · <span className="kbd">T</span> theme · <span className="kbd">1/2/3</span> view
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      );
+    }
+
+    // wait for all scripts
+    function mount() {
+      if (!window.V1Terminal || !window.V2Tmux || !window.V3Editorial || !window.CommandPalette) {
+        return setTimeout(mount, 30);
+      }
+      applyAccent(TWEAKS.accent);
+      ReactDOM.createRoot(document.getElementById("app")).render(<App />);
+    }
+    mount();
+  </script>
 </body>
 </html>

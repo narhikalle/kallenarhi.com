@@ -1,4 +1,3 @@
-// Shared content for Kalle Närhi's personal site
 window.SITE_DATA = {
   name: "Kalle Närhi",
   handle: "kalle",
