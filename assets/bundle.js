@@ -1782,7 +1782,7 @@ function Grid({
     n: "2",
     l: "projects in flight"
   }), /*#__PURE__*/React.createElement(Stat, {
-    n: "9y",
+    n: "5y",
     l: "in production"
   }), /*#__PURE__*/React.createElement(Stat, {
     n: "1",

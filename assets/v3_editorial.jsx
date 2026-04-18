@@ -103,10 +103,10 @@ function Grid({ data, typed }) {
           </div>
           <div style={{ fontSize: 11 }} className="dim">
             <div data-v3-stats style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              <Stat n="6" l="projects in flight" />
-              <Stat n="9y" l="in production" />
-              <Stat n="6" l="certifications" />
-              <Stat n="5" l="nodes racked" />
+              <Stat n="2" l="projects in flight" />
+              <Stat n="5y" l="in production" />
+              <Stat n="1" l="certifications" />
+              <Stat n="2" l="nodes racked" />
             </div>
           </div>
         </div>
