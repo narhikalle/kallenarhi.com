@@ -1,0 +1,162 @@
+/* Terminal / hacker aesthetic — shared across all variations */
+:root[data-theme="dark"] {
+  --bg:        #0b0d0c;
+  --bg-2:      #101413;
+  --bg-3:      #161b19;
+  --panel:     #0f1312;
+  --border:    #1f2a26;
+  --border-2:  #2a3832;
+  --fg:        #d6e0db;
+  --fg-dim:    #8a9a92;
+  --fg-mute:   #5b6b63;
+  --accent:    #7dd3a8;   /* phosphor green, tuned */
+  --accent-2:  #b7e4c7;
+  --warn:      #e5c07b;
+  --err:       #e06c75;
+  --link:      #7dd3a8;
+  --sel:       rgba(125, 211, 168, 0.18);
+  --scan:      rgba(255,255,255,0.015);
+}
+:root[data-theme="light"] {
+  --bg:        #f4f1ea;
+  --bg-2:      #ede9df;
+  --bg-3:      #e5e0d3;
+  --panel:     #f8f5ee;
+  --border:    #d8d2c2;
+  --border-2:  #bfb8a4;
+  --fg:        #1a1f1c;
+  --fg-dim:    #4a5249;
+  --fg-mute:   #7b8278;
+  --accent:    #1f6b44;
+  --accent-2:  #2e8a5a;
+  --warn:      #a6761d;
+  --err:       #b4352c;
+  --link:      #1f6b44;
+  --sel:       rgba(31, 107, 68, 0.14);
+  --scan:      rgba(0,0,0,0.015);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "calt" 1, "liga" 1;
+}
+::selection { background: var(--sel); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+.dim  { color: var(--fg-dim); }
+.mute { color: var(--fg-mute); }
+.accent { color: var(--accent); }
+.warn { color: var(--warn); }
+.err  { color: var(--err); }
+
+.caret::after {
+  content: "▊";
+  display: inline-block;
+  color: var(--accent);
+  transform: translateY(1px);
+  animation: blink 1.05s steps(2, start) infinite;
+  margin-left: 2px;
+}
+@keyframes blink { to { visibility: hidden; } }
+
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--scan) 0px,
+    var(--scan) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: .6;
+}
+
+.kbd {
+  font-family: inherit;
+  font-size: 11px;
+  padding: 1px 5px;
+  border: 1px solid var(--border-2);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  color: var(--fg-dim);
+  background: var(--bg-2);
+}
+
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 11px;
+  color: var(--fg-dim);
+  background: var(--bg-2);
+}
+.chip.on { color: var(--accent); border-color: var(--accent); }
+
+.tag { color: var(--fg-mute); }
+.tag::before { content: "#"; color: var(--fg-mute); }
+
+.hr-dashed {
+  border: 0;
+  border-top: 1px dashed var(--border-2);
+  margin: 16px 0;
+}
+
+.ascii-line {
+  color: var(--fg-mute);
+  white-space: pre;
+  letter-spacing: 0;
+}
+
+/* Buttons / pill */
+button, .btn {
+  font: inherit;
+  color: var(--fg);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .12s ease;
+}
+button:hover, .btn:hover { border-color: var(--accent); color: var(--accent); }
+
+.pane {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.pane-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--fg-dim);
+  background: var(--bg-2);
+}
+.pane-header .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.pane-header .dot.r { background: #e06c75; }
+.pane-header .dot.y { background: #e5c07b; }
+.pane-header .dot.g { background: #7dd3a8; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--fg-mute); }

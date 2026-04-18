@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalle Närhi — Cloud Engineer</title>
+  <meta name="description" content="Kalle Närhi — Cloud Engineer. Cloud, AI, security & tinkering." />
+  <meta name="color-scheme" content="dark light" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/theme.css" />
+
+  <style>
+    .v-switch { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 500;
+      display: inline-flex; gap: 2px; background: var(--panel); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-family: "JetBrains Mono", ui-monospace, monospace; }
+    .v-switch button { padding: 6px 12px; font-size: 11px; border-radius: 2px;
+      background: transparent; border: none; color: var(--fg-dim); }
+    .v-switch button.on { background: var(--accent); color: var(--bg); font-weight: 600; }
+    .v-switch button:hover { color: var(--fg); }
+    .v-switch button.on:hover { color: var(--bg); }
+    .v-switch .label { padding: 6px 8px 6px 10px; font-size: 10px; color: var(--fg-mute);
+      letter-spacing: 1.5px; border-right: 1px dashed var(--border-2); align-self: center; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const TWEAKS = { "accent": "green", "variation": "v3" };
+    const ACCENTS = {
+      green:  { dark: "#7dd3a8", light: "#1f6b44" },
+      amber:  { dark: "#e5c07b", light: "#a6761d" },
+      cyan:   { dark: "#7dc4e0", light: "#186c8a" },
+      magenta:{ dark: "#d89de0", light: "#8a2a7e" },
+      red:    { dark: "#e06c75", light: "#b4352c" }
+    };
+    function applyAccent(name) {
+      const root = document.documentElement;
+      const theme = root.getAttribute("data-theme") || "dark";
+      const c = ACCENTS[name] || ACCENTS.green;
+      root.style.setProperty("--accent", c[theme]);
+      root.style.setProperty("--link", c[theme]);
+    }
+    new MutationObserver(() => applyAccent(window.__tw_accent || TWEAKS.accent))
+      .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  </script>
+
+  <!-- Production React (minified, ~45KB gzipped total) -->
+  <script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+
+  <!-- Precompiled app -->
+  <script src="assets/data.js"></script>
+  <script src="assets/bundle.js"></script>
+</body>
+</html>
