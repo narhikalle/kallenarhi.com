@@ -1735,7 +1735,7 @@ function Grid({
       fontSize: 11,
       marginBottom: 4
     }
-  }, "ssh kalle@narhi.dev"), /*#__PURE__*/React.createElement("div", {
+  }, "ssh kalle@kallenarhi.com"), /*#__PURE__*/React.createElement("div", {
     className: "mono",
     style: {
       fontSize: 11
@@ -1779,16 +1779,16 @@ function Grid({
       gap: 12
     }
   }, /*#__PURE__*/React.createElement(Stat, {
-    n: "6",
+    n: "2",
     l: "projects in flight"
   }), /*#__PURE__*/React.createElement(Stat, {
     n: "9y",
     l: "in production"
   }), /*#__PURE__*/React.createElement(Stat, {
-    n: "6",
+    n: "1",
     l: "certifications"
   }), /*#__PURE__*/React.createElement(Stat, {
-    n: "5",
+    n: "2",
     l: "nodes racked"
   }))))), /*#__PURE__*/React.createElement(Rule, null), /*#__PURE__*/React.createElement("section", {
     id: "stack",
