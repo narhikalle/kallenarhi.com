@@ -56,8 +56,8 @@ window.SITE_DATA = {
 
   contact: {
     email: "me@kallenarhi.com",
-    github: "github.com/kallenarhi",
-    linkedin: "linkedin.com/in/kallenarhi",
+    github: "github.com/narhikalle",
+    linkedin: "https://www.linkedin.com/in/kalle-n%C3%A4rhi-246a95230/",
     pgp: "9aabdcc1afaf0fcba3af6e46f49d6d4862af0178"
   }
 };
